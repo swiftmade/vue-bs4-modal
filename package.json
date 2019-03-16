@@ -1,0 +1,9 @@
+{
+  "name": "vue-bs4-modal",
+  "version": "1.0.0",
+  "description": "Opinionated Bootstrap 4 modal component for Vue",
+  "main": "src/Bs4Modal.vue",
+  "repository": "https://github.com/swiftmade/vue-bs4-modal",
+  "author": "Ahmet Ozisik <hello@swiftmade.co>",
+  "license": "MIT"
+}
