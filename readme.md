@@ -1,18 +1,18 @@
 Vue Bootstrap 4 Modal
 =====================================
 
-This is an opinionated bootstrap 4 modal component. Use this if you want to quickly open a Bootstrap 4 modal, implement a custom handler for the primary action button or listen to show / hide events.
+This is an opinionated bootstrap 4 modal component with promise support. Use this if you want to quickly open a Bootstrap 4 modal, implement a custom handler for the primary action button or listen to show / hide events.
 
 
 ### Add to Your Project
 
-Will be added to npm registry soon. Until then,
+Add this package as a dependency:
 
 ```bash
-yarn add https://github.com/swiftmade/vue-bs4-modal
+yarn add vue-bs4-modal
 ```
 
-Then register the component in your Vue app:
+Or you can just copy [src/Bs4Modal.vue](https://raw.githubusercontent.com/swiftmade/vue-bs4-modal/master/src/Bs4Modal.vue) into your project... Then do this:
 
 ```js
 Vue.component('bs4-modal', require('vue-bs4-modal'));
@@ -35,50 +35,46 @@ Vue.component('bs4-modal', require('vue-bs4-modal'));
 
 ### Example Usage
 
-In the following example, pressing "Open Modal" will open 
+In the following example, pressing "Open Modal" will open a bootstrap 4 modal. Pressing "OK" will put the modal in busy state for 5 seconds. Then the modal will close and `waitForResponse()` call will be resolved. If you cancel or close the modal without pressing OK, `waitForResponse()` call will receive a rejection.
 
 ```vue
 <template>
-	<div>
-		<bs4-modal ref="modal" :handler="modalHandler">
-          <div slot="header">Your Modal's Title</div>
-          <div>
-          	Your Modal's body! Pressing OK will make you wait 5 seconds...
-          </div>
-		</bs4-modal>
-		
-		<button @click="openModal()">Open Modal</button>
-	</div>
+  <div>
+    <bs4-modal ref="modal" :handler="modalHandler">
+      <div slot="header">Your Modal's Title</div>
+      <div>Your Modal's body! Pressing OK will make you wait 5 seconds...</div>
+    </bs4-modal>
+
+    <button @click="openModal()">Open Modal</button>
+  </div>
 </template>
 
 <script>
 export default {
-
-	methods: {
-
-		openModal() {
-			this.$refs.modal.show()
-				.then(() => {
-					console.log('Modal is shown!');
-					return this.$refs.modal.waitForResponse();
-				})
-				.then(
-					() => {
-						console.log('Modal action is completed!');
-					},
-					() => {
-						console.log('Modal is cancelled !');
-					}
-				);
-		},
-		
-		modalHandler() {
-			return new Promise(resolve => {
-				setTimeout(resolve, 5000);
-			});
-		},
-
-	}
+  methods: {
+    
+    openModal() {
+      this.$refs.modal.show()
+        .then(() => {
+          console.log('Modal is shown!');
+          return this.$refs.modal.waitForResponse();
+        })
+        .then(
+          () => {
+            console.log('Modal action is completed!');
+          },
+          () => {
+            console.log('Modal is cancelled !');
+          }
+        );
+    },
+    
+    modalHandler() {
+      return new Promise(resolve => {
+        setTimeout(resolve, 5000);
+      });
+    },
+  }
 }
 </script>
 ```

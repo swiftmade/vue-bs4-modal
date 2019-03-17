@@ -72,8 +72,7 @@ export default {
     /**
      * Waits until the action in the modal is finished or cancelled.
      * Pressing the action button will call the "handler" prop that you passed.
-     * If it returns a value, the promise will be resolved with this value.
-     * If it returns a promise, it will wait in busy state until the promise is resolved, then return its value.
+     * it will wait in busy state until the promise is resolved, then return its value.
      * If cancel is pressed or the modal is closed by pressing escape, you will get a rejection.
      */
     waitForResponse() {
